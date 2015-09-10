@@ -8,12 +8,39 @@
   </head>
   <body class="mixpanel-platform-body">
     <script>
-
-    var funnel_1 = {event: 'Event 1', selector: '"United States" in properties["mp_country_code"]'}; 
-    var funnel_2 = {event: 'Event 2', selector: '"United States" in properties["mp_country_code"]'}; 
-    var funnel_3 = {event: 'Event 3', selector: '"United States" in properties["mp_country_code"]'}; 
     
-    MP.api.funnel(funnel_1, funnel_2, funnel_3, funnel_4).done(function(results){console.log(results);}
+    var start_date = moment().subtract(30, 'days');
+    var to_date = moment();
+    var length = 30;
+    var event1 = 'Event 1';
+    var event2 = 'Event 2';
+      
+      		
+    		funnel_params = {
+    			from: start_date,
+    			to: to_date,
+    			length: length,
+    			where: where_exp,
+    		  segment: "mp_country_code"
+    		};
+      		
+    		MP.api.funnel(event1, event2, funnel_params).done(function(result) {
+    			console.log(prop);
+    			console.log(result);
+    			numerator = 0;
+    			denominator = 0;
+    			_.each(result['$overall'], function(res) {
+    			    numerator += res[1].count;
+    			    denominator += res[0].count;
+    			});
+    			conversion_rate = numerator / denominator;
+    			//console.log(conversion_rate);
+
+    //var funnel_1 = {event: 'Event 1', selector: '"United States" in properties["mp_country_code"]'}; 
+    //var funnel_2 = {event: 'Event 2', selector: '"United States" in properties["mp_country_code"]'}; 
+    //var funnel_3 = {event: 'Event 3', selector: '"United States" in properties["mp_country_code"]'}; 
+    
+    //MP.api.funnel(funnel_1, funnel_2, funnel_3, funnel_4).done(function(results){console.log(results);}
 
     </script>
   </body>
